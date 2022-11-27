@@ -1,7 +1,6 @@
 'use strict';
 
 const AWS = require('aws-sdk');
-// const AWS = require(aws-sdk);
 
 exports.handler = async (event, context) => {
     const documentClient = new AWS.DynamoDB.DocumentClient();
@@ -9,14 +8,14 @@ exports.handler = async (event, context) => {
     let responseBody = '';
     let statusCode = 0;
 
-    // const {id, tableName, itemPrice} =  JSON.parse(event.body);
+    const { id, itemName, itemPrice } = JSON.parse(event.body);
 
     const params = {
         TableName: "Item",
         Item: {
-            id: 'item-01',
-            itemName: 'item01',
-            itemPrice: 15
+            id: id,
+            itemName: itemName,
+            itemPrice: itemPrice
         }
     }
 
