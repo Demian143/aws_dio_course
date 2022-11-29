@@ -1,6 +1,7 @@
 'use strict';
 
 const AWS = require('aws-sdk');
+// const AWS = require(aws-sdk);
 
 exports.handler = async (event, context) => {
     const documentClient = new AWS.DynamoDB.DocumentClient();
@@ -12,20 +13,18 @@ exports.handler = async (event, context) => {
 
     const params = {
         TableName: "Item",
-        Key: {
-            id: id,
-        }
+        Key: { "id": id }
     }
 
     try {
 
-        const data = await documentClient.delete(params).promise();
-        responseBody = JSON.stringify(data.Items);
-        statusCode = 201;
+        const data = await documentClient.get(params).promise();
+        responseBody = JSON.stringify(data);
+        statusCode = 204;
 
     } catch (err) {
 
-        responseBody = `Falha ao deletar item ${err}`;
+        responseBody = `Falha ao listar items ${err}`;
         statusCode = 403;
 
     }
